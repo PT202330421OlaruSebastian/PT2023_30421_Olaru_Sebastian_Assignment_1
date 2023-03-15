@@ -1,16 +1,21 @@
 package org.example;
 
+import Tests.Tests;
+
+import javax.swing.*;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.NavigableMap;
+import java.util.TreeMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import static java.util.Collections.reverseOrder;
 
 public class Main {
     public static void main(String[] args) {
-        HashMap<Integer,Integer> polinom = new HashMap<>();
-
-        polinom.put(1,12);
-        polinom.put(2,15);
-        polinom.put(3,17);
-
-        System.out.println(polinom);
+        //Tests tests = new Tests();
+        //tests.additionTests();
         MainForm main = new MainForm(null);
     }
+
 }
