@@ -1,5 +1,6 @@
 package org.example;
 
+import Operations.BasicOperations;
 import Tests.Tests;
 
 import javax.swing.*;
