@@ -13,10 +13,11 @@ public class NumericalIntegration {
         return result;
     }
 
-    public Hashtable<Integer,Integer> integrate(Hashtable<Integer,Integer> poly){ // NEEDS WORK
-        Hashtable<Integer,Integer> result = new Hashtable<>();
+    public Hashtable<Integer,Double> integrate(Hashtable<Integer,Integer> poly){ // NEEDS WORK
+        Hashtable<Integer,Double> result = new Hashtable<>();
         for (Integer exponent : poly.keySet()) {
-            result.put(exponent+1,poly.get(exponent));
+            double aux = poly.get(exponent)/exponent;
+            result.put(exponent+1,aux);
         }
         return result;
 

@@ -81,4 +81,38 @@ public class PolynomialManipulator {
             sb.append("0");
         return sb.toString();
     }
+    public String returnPolynomialDouble(Hashtable<Integer, Double> poly) {
+        StringBuilder sb = new StringBuilder();
+        boolean firstTerm = true;
+
+        for (Integer exponent : poly.keySet()) {
+            double coefficient = poly.get(exponent);
+
+            if (coefficient == 0) {
+                continue;
+            }
+
+            if (!firstTerm && coefficient > 0) {
+                sb.append("+");
+            }
+
+            if (coefficient == -1 && exponent != 0) {
+                sb.append("-");
+            } else if (coefficient != 1 || exponent == 0) {
+                sb.append(coefficient);
+            }
+
+            if (exponent > 0) {
+                sb.append("x");
+                if (exponent > 1) {
+                    sb.append("^" + exponent);
+                }
+            }
+
+            firstTerm = false;
+        }
+        if (sb.isEmpty())
+            sb.append("0");
+        return sb.toString();
+    }
 }

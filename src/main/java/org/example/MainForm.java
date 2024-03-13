@@ -22,6 +22,7 @@ public class MainForm extends JDialog{
     private JButton derivativeButton;
     private JButton addButton;
     private JButton exitButton;
+    private JButton divideButton;
 
     private BasicOperations basicOperations = new BasicOperations();
     private PolynomialManipulator polynomialManipulator = new PolynomialManipulator();
@@ -33,7 +34,7 @@ public class MainForm extends JDialog{
         super(parent);
         setTitle("Polynomial Calculator");
         setContentPane(mainPanel);
-        setMinimumSize(new Dimension(800,210));
+        setMinimumSize(new Dimension(850,210));
         setModalityType(ModalityType.APPLICATION_MODAL);
         setLocationRelativeTo(parent);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -90,8 +91,11 @@ public class MainForm extends JDialog{
                     polynomialManipulator.PolynomialParser(firstPolynomial.getText(), firstPoly);
                     polynomialManipulator.PolynomialParser(secondPolynomial.getText(), secondPoly);
 
-                    firstPoly = numericalIntegration.integrate(firstPoly);
-                    result = polynomialManipulator.returnPolynomial(firstPoly);
+                    Hashtable<Integer,Double> resultPoly = new Hashtable<>();
+                    System.out.println(resultPoly);
+                    resultPoly = numericalIntegration.integrate(firstPoly);
+
+                    result = polynomialManipulator.returnPolynomialDouble(resultPoly);
                     resultField.setText(result);
 
                     firstPoly.clear();
@@ -145,6 +149,28 @@ public class MainForm extends JDialog{
                 }
             }
         });
+        divideButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(inputValidation.inputValidation(firstPolynomial) && inputValidation.inputValidation(secondPolynomial)) {
+                    String result = "";
+
+
+                    polynomialManipulator.PolynomialParser(firstPolynomial.getText(), firstPoly);
+                    polynomialManipulator.PolynomialParser(secondPolynomial.getText(), secondPoly);
+
+                    firstPoly = basicOperations.dividePolynomials(firstPoly, secondPoly);
+
+                    result = polynomialManipulator.returnPolynomial(firstPoly);
+                    resultField.setText(result);
+
+                    firstPoly.clear();
+                    secondPoly.clear();
+                }else{
+                    JOptionPane.showMessageDialog(new JFrame(),"Wrong type of input","Dialog",JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -152,16 +178,6 @@ public class MainForm extends JDialog{
             }
         });
         setVisible(true);
-    }
 
-    private static double evaluate(Hashtable<Integer, Integer> poly, double x) {
-        double result = 0.0;
-
-        for (Integer exponent : poly.keySet()) {
-            double coefficient = poly.get(exponent);
-            result += coefficient * Math.pow(x, exponent);
-        }
-
-        return result;
     }
 }
